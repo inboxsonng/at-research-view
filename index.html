@@ -11,7 +11,7 @@ input,button{display:block;width:100%;font:inherit;border-radius:5px;padding:9px
 input{margin:5px 0 14px;border:1px solid #90a4ba}button{color:white;background:#0758a4;border:0;cursor:pointer;font-weight:650}
 :focus-visible{outline:3px solid #ff8428;outline-offset:2px}#status{color:#9b302b;margin:9px 0}
 </style></head><body><header>AUTO TRADER</header><main><h1>Auto Trader workspace</h1>
-<p>Enter the guest password to check workspace access.</p>
+<p>Enter the shared password to view capper profiles and paper results.</p>
 <form id="unlock"><label for="password">Guest password</label>
 <input id="password" type="password" autocomplete="current-password" required>
 <button>Open dashboard</button><p id="status" role="status"></p></form>
@@ -25,9 +25,11 @@ document.getElementById('unlock').addEventListener('submit',async event=>{
  const decode=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
  try {
    const material=await crypto.subtle.importKey('raw',new TextEncoder().encode(field.value),'PBKDF2',false,['deriveKey']);
-   const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:decode('jyrgHt9PSwR+ZniH2jZMPA=='),iterations:600000,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['decrypt']);
-   const bytes=await crypto.subtle.decrypt({name:'AES-GCM',iv:decode('kLJvESz+oB0uIAus')},key,decode('1i/unG+BIewsHsJSSusZgY8gtxPlLlwOVln74NCrUaj142furTieuCGDQOQLB02JvuRqD3wPhqIPey6ACgtLIIRAquVZVAei+vKo8166nHN+yfk4hL9FoZ63l/gzb68AKrWyb2iRAMCHgaHaePMW+CdMBDVXo4DfyFzd2Kd1vJOC0YoNA4iVDkeolYB2eI3MEwyLK2+w24m6sxL/w8DlOXn/Q/XXbzIRw0VsF/KcwnFROhckoZDP6j7xunyiZOwBeN/FI7kh4qlI0LCIQuTFgp5w/gg07fmiZWknsfeqM+FHHAtpZhDf9mHybgQw5VVq8bMPqjH/zzS8zIThjAelNgKU5CCWMm+UhOlmGlEEQ0Mwtun/UO/jojRlp7jz9OegL9RlW4Sdp6fse1J1Sdbqvwb7Ht0hERh20415BRPb6cbx3zpYoZYibu56eSyYBp7Nk6h7CNNnnxFFauziDoRtqeu0dxy8lMgDFJMN5OaPkUYBUFgBgSR05wdwvQgLmKoVMT4EpNIFvbD9XWR1GD88AMMkagHaH3e148GuMmQLX7onznL/CLkayEbbIje8nyfdG6YgWsC8NTwtojWQ1nQ5M9shaGfhwq2pJ5wkEYRk1QNfNxWzgI7bWiil8je4mCN98CCQNi904IozhMfHzMTEDODARpey0tEw3j7XNvKjBdQIcn275nzRd6zzBebkZKXIBgXFL0JqMV1LHHy/Y3OdhpoWOqcNt2CKXqG2NrDq5Bbk1SfmyOxC3AWPt1exp1afwtqwq6Z7whByT88ibrIfSfzxfPGY6UbDuirsD3hGNA1Bxjb5cxAlbFpuH3Jb9zQGHAeWOBd5MEySB0RZ4wZP3iiLHKjoMxdarSNvK/AVqVAcCJDcQhflE1b9Y/YyiGLsW3IwuZvwb6LRE9HHX8dXtHH+qunlm2/mlM21bQ=='));
-   field.value='';document.open();document.write(new TextDecoder().decode(bytes));document.close();
+   const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:decode('HOUkph0Ygg2FpVVw9cuekQ=='),iterations:600000,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['decrypt']);
+   const bytes=await crypto.subtle.decrypt({name:'AES-GCM',iv:decode('UtilibgPKPBoZ/8g')},key,decode('s9P/xnQxCN77uXjrNOMXmk0sXcmUBatf6FV3bTaL/bIKQQZkpP5sUv+mqm0QH92wOTJNxp9DJN50w1resiHDl+zK0jdp2REw7Ik4j/rIt+zKpt56FucpIzWaHrIDXgyIjjPuL/sI3DX826DzN/cSYUjMN8O/gUpSiVz7MOL7pLhsRArE/ktjkHX1x4Ui5vCsoiOFd3E5TT1fTmaPs7b2HqXxaIiiAyMm89t+zw7hAmyIwfD6XKBiRex6a9GDusiSkQEwTSWRZfs25cu9N8hbwR/TZA7GMKEp96/SvqidGmxJ4IFcCCna5SpLIsJpC8rFX834X1Ze0Zp2PJhhB3fjG+RQyLIRsWcibsM/coOLl3oPyX0h/5AB82jY31HA/WR4Wdu//f7djbtpcNFERnmkaaZBDwZF6TVb7omi+tUOwBaFN5B6ZyBJFercfLQiy/0q6k0bimFDBkzGTr6n4kTR9L/H+C1mNv6cf7yHucE0ZrA47iOXJJ/v5tDxAJApz2ucmsmc8jwe+RQ5lGB8n6gjGbNXilZ1Eift1Qk5LCqjWCLMPNDd9J4t2ZNawlq0uhwv5s8ySKDzrmdYCFzgzBfxFdlPBFmxkAX1RWuDWHZ+JvpucXxxGXeZqzmekYUHUbIWk2J4B/VaV5nntlcN2lLw'));
+   const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+   const html=await new Response(stream).text();
+   field.value='';document.open();document.write(html);document.close();
  }catch(error){
    status.textContent=error.name==='OperationError'?'Incorrect password. Try again.':'Unable to open the report. Reload and try again.';
    button.disabled=false;field.focus();field.select();
